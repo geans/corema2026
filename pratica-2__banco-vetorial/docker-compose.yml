@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pratica-ingestao-app
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      COLLECTION_NAME: COREMA-documents
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    volumes:
+      - embedding_cache:/home/appuser/.cache
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: pratica-ingestao-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/localhost/6333'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  qdrant_storage:
+  embedding_cache:

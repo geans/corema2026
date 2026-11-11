@@ -1,0 +1,9 @@
+
+fastapi
+uvicorn[standard]
+httpx
+trafilatura
+markdownify
+PyMuPDF
+qdrant-client
+google-genai
