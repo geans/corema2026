@@ -132,10 +132,6 @@ async def extract_web(request: URLRequest):
                 "Não foi possível extrair conteúdo textual da página.",
             )
 
-        # return {
-        #     "url": url,
-        #     "markdown": markdown,
-        # }
         return Response(content=markdown, media_type="text/markdown")
 
 
@@ -146,7 +142,7 @@ async def extract_web(request: URLRequest):
         )
 
     except httpx.RequestError as e:
-        raise HTTPException(502, f"Erro ao acessar o site: {str(e)}")
+        raise HTTPException(502, f"Erro ao acessar o site: {e}")
 
 
 @app.post("/pdf")
@@ -193,12 +189,6 @@ async def extract_pdf(request: URLRequest):
             for page in pages
         )
 
-        # return {
-        #     "url": url,
-        #     "total_pages": len(pages),
-        #     "text": full_text,
-        #     "pages": pages,
-        # }
         return Response(content=full_text, media_type="text/markdown")
 
     except httpx.HTTPStatusError as e:
@@ -208,4 +198,4 @@ async def extract_pdf(request: URLRequest):
         )
 
     except httpx.RequestError as e:
-        raise HTTPException(502, f"Erro ao baixar PDF: {str(e)}")
+        raise HTTPException(502, f"Erro ao baixar PDF: {e}")
