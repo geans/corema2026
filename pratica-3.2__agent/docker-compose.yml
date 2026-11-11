@@ -9,7 +9,7 @@ services:
     environment:
       QDRANT_URL: http://qdrant:6333
       COLLECTION_NAME: COREMA-documents
-      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
     depends_on:
       qdrant:
         condition: service_healthy
@@ -23,7 +23,7 @@ services:
     ports:
       - "7777:7777"
     environment:
-      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
       QDRANT_URL: http://qdrant:6333
       COLLECTION_NAME: COREMA-documents
     depends_on:

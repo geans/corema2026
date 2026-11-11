@@ -1,3 +1,6 @@
 agno
 google-genai
 qdrant-client
+uvicorn[standard]
+fastapi
+python-multipart
