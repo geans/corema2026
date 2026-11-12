@@ -2,7 +2,6 @@
 import asyncio
 import os
 
-import tools
 from agno.agent import Agent
 from agno.knowledge.embedder.base import Embedder
 from agno.knowledge.knowledge import Knowledge
@@ -14,7 +13,7 @@ from google.genai import types
 
 QDRANT_URL = os.getenv("QDRANT_URL")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 EMBEDDING_MODEL = "gemini-embedding-2"
 VECTOR_SIZE = 3072
@@ -23,7 +22,7 @@ VECTOR_SIZE = 3072
 class GeminiEmbedding2(Embedder):
     def __init__(self):
         super().__init__(dimensions=VECTOR_SIZE)
-        self.client = genai.Client(api_key=GEMINI_API_KEY)
+        self.client = genai.Client(api_key=GOOGLE_API_KEY)
 
     def get_embedding(self, text: str) -> list:
         response = self.client.models.embed_content(
@@ -54,7 +53,6 @@ knowledge = Knowledge(
 )
 
 agent = Agent(
-    tools=[tools.estimate_solar_generation],
     name="Chatbot",
     model=Gemini(id="gemini-3.5-flash-lite"),
     knowledge=knowledge,

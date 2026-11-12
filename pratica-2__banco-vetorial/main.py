@@ -27,7 +27,7 @@ MAX_REDIRECTS = 5
 
 QDRANT_URL = os.getenv("QDRANT_URL")
 COLLECTION_NAME = os.getenv("COLLECTION_NAME")
-GEMINI_API_KEY=os.getenv("GEMINI_API_KEY")
+GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
 
 EMBEDDING_MODEL = "gemini-embedding-2"
 VECTOR_SIZE = 3072
@@ -48,7 +48,7 @@ def initialize_services():
     global qdrant, embedding_model
 
     qdrant = QdrantClient(url=QDRANT_URL)
-    embedding_model = genai.Client(api_key=GEMINI_API_KEY)
+    embedding_model = genai.Client(api_key=GOOGLE_API_KEY)
 
     if not qdrant.collection_exists(COLLECTION_NAME):
         qdrant.create_collection(

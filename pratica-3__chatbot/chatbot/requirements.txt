@@ -1,6 +1,6 @@
-agno
+agno[os]==3.1.12
 google-genai
-qdrant-client
+qdrant-client>=1.17.1
 uvicorn[standard]
 fastapi
 python-multipart
